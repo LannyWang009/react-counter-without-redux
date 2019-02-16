@@ -23,12 +23,38 @@ class MyComponent extends React.Component {
     console.log('Component is being removed from the DOM')
   }
 
-  handleClick = () => {
-    console.log('hi, i am just clicked', 'this', this)
+  handlePlusClick = () => {
+    console.log('+1 button just clicked', 'this', this)
     this.setState({
       value: this.state.value + 1
     })
   }
+
+  handleMinusClick = () => {
+    console.log('-1 button just clicked', 'this', this)
+    this.setState({
+      value: this.state.value - 1
+    })
+  }
+  
+  handleChange = (event) => {
+      this.setState({value: event.target.value})
+  }
+
+
+  handleSubmit = () => {
+      console.log('The user submit the form', this.state.value)
+      event.preventDefault();
+    //   let formData = new FormData(valueForm)
+    //   console.log('formData', formData)
+    //   let newValue = formData.get('newValue')
+    //   console.log('newValue', newValue)
+    //   this.setState({
+    //       value:newValue
+    //   })
+  }
+
+
 
   render () {
     console.log('this render has been called', 'this.props', this.props)
@@ -36,8 +62,13 @@ class MyComponent extends React.Component {
         Hello, {this.props.name}
       <br />
       {this.state.value}
-      <button onClick={this.handleClick} value={this.state.value}>Button</button>
-
+      <button onClick={this.handlePlusClick} value={this.state.value} >Plus One</button>
+      <button onClick={this.handleMinusClick} value={this.state.value}>Minus One</button>
+      <form id='valueForm' name='valueForm' onSubmit={this.handleSubmit}>
+        <label htmlFor='newValue'>Set a new value:</label>
+        <input type="number" value={this.state.value} onChange={this.handleChange} />
+        <input type="submit" value ="Submit" />
+      </form>
     </div>
   }
 }
